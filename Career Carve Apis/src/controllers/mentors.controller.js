@@ -6,7 +6,7 @@ exports.schedule = (req, res) => {
     Mentors.scheduleMeeting(req.params.day, req.params.area_of_intrest, (err, mentor) => {
         if(err)
             res.send(err);
-        res.json({status:true, data:mentor[0]})
+        res.json({status:true, mentorDetails:mentor[0]})
     })
 }
 

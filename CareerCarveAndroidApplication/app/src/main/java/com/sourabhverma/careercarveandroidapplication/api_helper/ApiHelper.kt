@@ -1,12 +1,17 @@
 package com.sourabhverma.careercarveandroidapplication.api_helper
 
+import com.sourabhverma.careercarveandroidapplication.add_schedule.data.remote.dto.ScheduleSuggestion
 import com.sourabhverma.careercarveandroidapplication.entry_point.data.remote.dto.AddMentor
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
+import okhttp3.OkHttpClient
+
+import okhttp3.logging.HttpLoggingInterceptor
+
+
+
 
 
 interface ApiHelper {
@@ -27,13 +32,24 @@ interface ApiHelper {
         @Field("schedule_end") schedule_end : String
     ) : Call<AddMentor?>?
 
+    @GET("api/v1/mentors/schedule/suggestion/{day}/{area_of_intrest}")
+    fun scheduleMeetingSuggestions(
+        @Path("day") day : Int,
+        @Path("area_of_intrest") area_of_intrest : Int
+    ) : Call<ScheduleSuggestion?>?
+
     companion object{
+
         operator fun invoke() : ApiHelper {
-            return Retrofit.Builder()
+            val interceptor = HttpLoggingInterceptor()
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+            val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build()
+            val retrofit = Retrofit.Builder()
                 .baseUrl("http://192.168.176.216:8000/")
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(ApiHelper::class.java)
+            return retrofit.create(ApiHelper::class.java)
         }
     }
 }
