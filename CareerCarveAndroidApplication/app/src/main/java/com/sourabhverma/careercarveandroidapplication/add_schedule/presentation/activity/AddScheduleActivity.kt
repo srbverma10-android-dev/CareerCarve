@@ -1,6 +1,7 @@
 package com.sourabhverma.careercarveandroidapplication.add_schedule.presentation.activity
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -16,6 +17,7 @@ import com.sourabhverma.careercarveandroidapplication.R
 import com.sourabhverma.careercarveandroidapplication.add_schedule.presentation.dialogs.DatePicker
 import com.sourabhverma.careercarveandroidapplication.add_schedule.presentation.viewmodels.AddScheduleViewModel
 import com.sourabhverma.careercarveandroidapplication.databinding.ActivityAddScheduleBinding
+import com.sourabhverma.careercarveandroidapplication.utils.VARIABLES
 import java.text.DateFormat
 import java.util.*
 
@@ -36,6 +38,18 @@ class AddScheduleActivity : AppCompatActivity() , DatePickerDialog.OnDateSetList
     private var payments = arrayOf(
         -1, 4000, 3000, 2000
     )
+
+    private var values = arrayOf(
+        -1, 60, 45, 30
+    )
+
+    private var mentor_id : Int = 1
+    private var duration : Int = 30
+    private var mentor_name : String = ""
+    private var mentor_email : String = ""
+    private var meeting_date : String = ""
+    private var schedule_start : String = ""
+    private var schedule_end : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,6 +93,12 @@ class AddScheduleActivity : AppCompatActivity() , DatePickerDialog.OnDateSetList
                 binding.suggestedMentorDetails.visibility = View.VISIBLE
                 binding.durationSpinner.visibility = View.VISIBLE
 
+                mentor_id = it.mentorDetails.mentor_id
+                mentor_name = it.mentorDetails.mentor_name
+                mentor_email = it.mentorDetails.mentor_email
+                schedule_start = it.mentorDetails.schedule_start
+                schedule_end = it.mentorDetails.schedule_end
+
             } else {
                 Log.d("SourabhKumarVerma", "viewModelObserver: error")
             }
@@ -99,6 +119,13 @@ class AddScheduleActivity : AppCompatActivity() , DatePickerDialog.OnDateSetList
 
                 binding.mentorIdEditTextLayout.visibility = View.GONE
                 binding.changeMentorBtn.visibility = View.GONE
+
+                mentor_id = it.mentorDetails.mentor_id
+                mentor_name = it.mentorDetails.mentor_name
+                mentor_email = it.mentorDetails.mentor_email
+                schedule_start = it.mentorDetails.schedule_start
+                schedule_end = it.mentorDetails.schedule_end
+
             }
         })
 
@@ -120,6 +147,19 @@ class AddScheduleActivity : AppCompatActivity() , DatePickerDialog.OnDateSetList
             viewModel.searchMentorById(binding.mentorIdEditText.text.toString().toInt())
         }
 
+        binding.payBtn.setOnClickListener {
+            val prefs = getSharedPreferences(
+                VARIABLES.MY_PREFERENCES, Context.MODE_PRIVATE
+            )
+            val name = prefs.getString(VARIABLES.NAME, "USER")
+            val email = prefs.getString(VARIABLES.EMAIL, "USER@gmail.com")
+            val student_id = prefs.getInt(VARIABLES.STUDENT_ID, 1)
+
+            if (name != null && email != null) {
+                viewModel.addMeeting(student_id, mentor_id, name, mentor_name, email, mentor_email, duration, meeting_date, schedule_start, schedule_end)
+            }
+        }
+
     }
 
     override fun onDateSet(p0: android.widget.DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
@@ -132,6 +172,8 @@ class AddScheduleActivity : AppCompatActivity() , DatePickerDialog.OnDateSetList
         setDay(selectedDate)
         binding.selectDate.text = selectedDate
         Snackbar.make(binding.root, "Please wait we are scheduling a meeting for you.", Snackbar.LENGTH_SHORT).show()
+
+        meeting_date = "${year}-${month}-${dayOfMonth}"
 
         viewModel.scheduleMeetingSuggestions(day, binding.areaOfInterestEditText.text.toString().toInt())
 
@@ -156,6 +198,7 @@ class AddScheduleActivity : AppCompatActivity() , DatePickerDialog.OnDateSetList
             binding.paymentDetails.text = "${payments[position]} Rs only /-"
             binding.paymentDetails.visibility = View.VISIBLE
             binding.payBtn.visibility = View.VISIBLE
+            duration = values[position]
         }
     }
 

@@ -10,7 +10,11 @@ data class MentorDetails(
     @SerializedName("mentor_email")
     val mentor_email: String,
     @SerializedName("area_of_interst")
-    val area_of_interst: String
+    val area_of_interst: String,
+    @SerializedName("schedule_start")
+    val schedule_start: String,
+    @SerializedName("schedule_end")
+    val schedule_end: String
 )
 
 

@@ -3,6 +3,7 @@ package com.sourabhverma.careercarveandroidapplication.add_schedule.presentation
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.sourabhverma.careercarveandroidapplication.add_schedule.data.remote.dto.AddMeeting
 import com.sourabhverma.careercarveandroidapplication.add_schedule.data.remote.dto.ScheduleSuggestion
 import com.sourabhverma.careercarveandroidapplication.add_schedule.data.remote.repository.AddScheduleRepo
 
@@ -11,6 +12,23 @@ class AddScheduleViewModel: ViewModel() {
     private val repo : AddScheduleRepo = AddScheduleRepo()
     private var suggestions : MutableLiveData<ScheduleSuggestion> = MutableLiveData()
     private var search : MutableLiveData<ScheduleSuggestion> = MutableLiveData()
+    private var addMeeting : MutableLiveData<AddMeeting> = MutableLiveData()
+
+    fun addMeeting(student_id : Int, mentor_id : Int, student_name : String, mentor_name : String,
+        student_email: String, mentor_email: String, duration : Int, meeting_date : String, schedule_start : String, schedule_end : String){
+        repo.addMeeting(student_id, mentor_id, student_name, mentor_name, student_email, mentor_email, duration, meeting_date, schedule_start, schedule_end){
+            if (it != null && it.status && it.data != null){
+                addMeeting.postValue(it)
+            } else {
+                addMeeting.postValue(null)
+            }
+        }
+    }
+
+    fun getAddMeetingLiveData() : MutableLiveData<AddMeeting> {
+        return addMeeting
+    }
+
 
     fun searchMentorById(id : Int){
         repo.searchMentorById(id){

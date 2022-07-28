@@ -1,5 +1,6 @@
 package com.sourabhverma.careercarveandroidapplication.api_helper
 
+import com.sourabhverma.careercarveandroidapplication.add_schedule.data.remote.dto.AddMeeting
 import com.sourabhverma.careercarveandroidapplication.add_schedule.data.remote.dto.ScheduleSuggestion
 import com.sourabhverma.careercarveandroidapplication.entry_point.data.remote.dto.AddMentor
 import com.sourabhverma.careercarveandroidapplication.entry_point.data.remote.dto.AddStudent
@@ -33,6 +34,22 @@ interface ApiHelper {
         @Field("schedule_end") schedule_end : String
     ) : Call<AddMentor?>?
 
+
+    @FormUrlEncoded
+    @POST("api/v1/meetings/add")
+    fun addMeeting(
+        @Field("student_email") student_email : String,
+        @Field("mentor_email") mentor_email : String,
+        @Field("student_name") student_name : String,
+        @Field("mentor_name") mentor_name : String,
+        @Field("duration") duration : Int,
+        @Field("student_id") student_id : Int,
+        @Field("mentor_id") mentor_id : Int,
+        @Field("meeting_date") meeting_date : String,
+        @Field("schedule_start") schedule_start : String,
+        @Field("schedule_end") schedule_end : String
+    ) : Call<AddMeeting?>?
+
     @FormUrlEncoded
     @POST("api/v1/students/add")
     fun addStudent(
@@ -58,7 +75,7 @@ interface ApiHelper {
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
             val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build()
             val retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.176.216:8000/")
+                .baseUrl("http://192.168.127.216:8000/")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

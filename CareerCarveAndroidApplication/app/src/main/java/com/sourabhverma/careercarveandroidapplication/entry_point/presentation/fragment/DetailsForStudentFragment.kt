@@ -17,16 +17,13 @@ import com.sourabhverma.careercarveandroidapplication.R
 import com.sourabhverma.careercarveandroidapplication.dashboard.presentation.activity.DashBoardActivity
 import com.sourabhverma.careercarveandroidapplication.databinding.FragmentDetailsForStudentBinding
 import com.sourabhverma.careercarveandroidapplication.entry_point.presentation.viewmodels.EntryPointViewModel
+import com.sourabhverma.careercarveandroidapplication.utils.VARIABLES
 
 class DetailsForStudentFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailsForStudentBinding
 
     private lateinit var viewModel: EntryPointViewModel
-
-    private val myPREFERENCES = "MyPrefs"
-    private val name = "nameKey"
-    private val email = "emailKey"
 
     private var sharedpreferences: SharedPreferences? = null
 
@@ -61,10 +58,11 @@ class DetailsForStudentFragment : Fragment() {
 
         viewModel.getAddStudentLiveData().observe(viewLifecycleOwner, {
             if(it?.data!= null){
-                sharedpreferences = context?.getSharedPreferences(myPREFERENCES, Context.MODE_PRIVATE)
+                sharedpreferences = context?.getSharedPreferences(VARIABLES.MY_PREFERENCES, Context.MODE_PRIVATE)
                 val editor: SharedPreferences.Editor = sharedpreferences!!.edit()
-                editor.putString(name, binding.nameEditText.text.toString())
-                editor.putString(email, binding.emailEditText.text.toString())
+                editor.putString(VARIABLES.NAME, binding.nameEditText.text.toString())
+                editor.putString(VARIABLES.EMAIL, binding.emailEditText.text.toString())
+                editor.putInt(VARIABLES.STUDENT_ID, it.data)
                 editor.apply()
                 val intent = Intent(requireContext(), DashBoardActivity::class.java)
                 intent.putExtra("ShouldShowFAB", true)
