@@ -1,5 +1,16 @@
 const Mentors = require('../models/mentors.models')
 
+
+exports.schedule = (req, res) => {
+    console.log("Scheduling...", req.body);
+    Mentors.scheduleMeeting(req.params.day, req.params.area_of_intrest, (err, mentor) => {
+        if(err)
+            res.send(err);
+        res.json({status:true, data:mentor[0]})
+    })
+}
+
+
 exports.addMentors = (req, res) => {
     const mentorReqData = new Mentors(req.body);
     console.log("Adding Mentors...", mentorReqData);

@@ -15,6 +15,46 @@ var Mentors = function(mentors){
     this.schedule_end              = mentors.schedule_end;
 }
 
+Mentors.scheduleMeeting = (day, area_of_interst, result) => {
+
+    // "Sunday" -> day = 0
+    // "Monday" -> day = 1
+    // "Tuesday" -> day = 2
+    // "Wednesday" -> day = 3
+    // "Thursday" -> day = 4
+    // "Friday" -> day = 5
+    // "Saturday" -> day = 6
+
+    var dayInStr = ""
+    if(day == '0')
+        dayInStr = "sun";
+    else if (day == '1')
+        dayInStr = "mon";
+    else if (day == '2')
+        dayInStr = "tue";
+    else if (day == '3')
+        dayInStr = "wed";
+    else if (day == '4')
+        dayInStr = "thrus";
+    else if (day == '5')
+        dayInStr = "fri";
+    else if (day == '6')
+        dayInStr = "sat";
+
+
+
+    var query = 'SELECT * FROM mentors WHERE area_of_interst=? AND avail_' + dayInStr + '=1 LIMIT 1'
+    console.log(query)
+    dbConn.query(query, area_of_interst, (err, res) => {
+        if(err){
+            console.log('Error while scheduling a meeting', err)
+            result(null, err);            
+        } else {
+            result(null, res)
+        }
+    })
+}
+
 Mentors.addMentor = (mentorReqData, result) => {
     dbConn.query('Insert into mentors SET ? ', mentorReqData, (err, res)=>{
         if(err){
