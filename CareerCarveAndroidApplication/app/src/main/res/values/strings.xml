@@ -23,6 +23,10 @@
     <string name="enter_start_timing">Start timing…</string>
     <string name="enter_end_timing">End timing…</string>
 
+    <string name="schedule_a_meeting">Schedule a meeting</string>
+    <string name="what_is_your_area_of_interest">What is your area of interest???</string>
+    <string name="enter_date_for_scheduling_meeting">Select a date for scheduling a meeting with our mentors.</string>
+    <string name="select_date">Select date.</string>
 
 
 </resources>

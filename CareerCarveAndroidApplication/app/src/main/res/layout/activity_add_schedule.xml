@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".add_schedule.presentation.activity.AddScheduleActivity">
+
+        <TextView
+            android:id="@+id/schedule_a_meeting_tv"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/schedule_a_meeting"
+            android:textSize="@dimen/s_22"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            android:layout_margin="@dimen/d_24"
+            />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/area_of_interest_edit_text_layout"
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="@dimen/d_8"
+            android:hint="@string/what_is_your_area_of_interest"
+
+            android:textColorHint="@color/black"
+
+            app:errorEnabled="false"
+            app:hintTextColor="@color/black"
+
+            android:layout_margin="@dimen/d_16"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/schedule_a_meeting_tv">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/area_of_interest_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:id="@+id/select_date_tv"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/enter_date_for_scheduling_meeting"
+
+            app:layout_constraintTop_toBottomOf="@id/area_of_interest_edit_text_layout"
+            app:layout_constraintStart_toStartOf="parent"
+
+            android:layout_margin="@dimen/d_16"
+            />
+
+        <TextView
+            android:id="@+id/select_date"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/enter_start_timing"
+            android:textSize="@dimen/s_18"
+            android:textColor="@color/black"
+
+            android:padding="@dimen/d_8"
+
+            android:layout_margin="@dimen/d_16"
+
+            app:layout_constraintTop_toBottomOf="@id/select_date_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

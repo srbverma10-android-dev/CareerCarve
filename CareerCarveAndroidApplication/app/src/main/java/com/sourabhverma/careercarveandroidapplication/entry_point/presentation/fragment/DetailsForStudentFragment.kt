@@ -1,5 +1,6 @@
 package com.sourabhverma.careercarveandroidapplication.entry_point.presentation.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.sourabhverma.careercarveandroidapplication.R
+import com.sourabhverma.careercarveandroidapplication.dashboard.presentation.activity.DashBoardActivity
 import com.sourabhverma.careercarveandroidapplication.databinding.FragmentDetailsForStudentBinding
 
 class DetailsForStudentFragment : Fragment() {
@@ -34,6 +36,19 @@ class DetailsForStudentFragment : Fragment() {
             .apply (RequestOptions.placeholderOf(R.drawable.ic_baseline_face_24))
             .circleCrop()
             .into(binding.profileImage)
+
+        setOnClickListener()
+
+    }
+
+    private fun setOnClickListener() {
+
+        binding.submitBtn.setOnClickListener {
+            val intent = Intent(requireContext(), DashBoardActivity::class.java)
+            intent.putExtra("ShouldShowFAB", true)
+            startActivity(intent)
+        }
+
     }
 
 }

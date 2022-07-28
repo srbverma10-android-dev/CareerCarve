@@ -2,6 +2,7 @@
 <resources>
 
     <dimen name="s_42">42sp</dimen>
+    <dimen name="s_22">22sp</dimen>
     <dimen name="s_18">18sp</dimen>
 
     <dimen name="d_126">126dp</dimen>

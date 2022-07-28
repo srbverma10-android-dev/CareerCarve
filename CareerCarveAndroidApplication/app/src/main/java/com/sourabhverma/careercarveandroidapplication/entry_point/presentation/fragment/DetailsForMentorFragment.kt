@@ -1,6 +1,7 @@
 package com.sourabhverma.careercarveandroidapplication.entry_point.presentation.fragment
 
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.sourabhverma.careercarveandroidapplication.R
+import com.sourabhverma.careercarveandroidapplication.dashboard.presentation.activity.DashBoardActivity
 import com.sourabhverma.careercarveandroidapplication.databinding.FragmentDetailsForMentorBinding
 import com.sourabhverma.careercarveandroidapplication.entry_point.presentation.viewmodels.EntryPointViewModel
 
@@ -49,8 +51,12 @@ class DetailsForMentorFragment : Fragment() {
 
     private fun viewModelObserver() {
         viewModel.getAddMentorLiveData().observe(viewLifecycleOwner, {
-            if(it != null){
-                Toast.makeText(requireContext(), "not null", Toast.LENGTH_SHORT).show()
+            if(it?.data != null){
+                val intent = Intent(requireContext(), DashBoardActivity::class.java)
+                intent.putExtra("ShouldShowFAB", false)
+                startActivity(intent)
+            } else {
+                Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT).show()
             }
         })
     }
