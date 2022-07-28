@@ -38,6 +38,11 @@ interface ApiHelper {
         @Path("area_of_intrest") area_of_intrest : Int
     ) : Call<ScheduleSuggestion?>?
 
+    @GET("api/v1/mentors/searchById/{mentor_id}")
+    fun searchMentorById(
+        @Path("mentor_id") mentor_id : Int
+    ): Call<ScheduleSuggestion?>?
+
     companion object{
 
         operator fun invoke() : ApiHelper {

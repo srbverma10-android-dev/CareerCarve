@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const mentorsController = require('../controllers/mentors.controller');
+const studentsController = require('../controllers/students.controller')
 
 router.post('/add', mentorsController.addMentors);
 

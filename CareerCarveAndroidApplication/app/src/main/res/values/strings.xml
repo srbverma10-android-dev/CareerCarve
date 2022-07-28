@@ -30,6 +30,7 @@
     <string name="change_mentor">Want to change mentor?</string>
     <string name="enter_mentor_id">Enter mentor id</string>
     <string name="change_mentor_btn">Change mentor</string>
+    <string name="pay_btn">Pay and book your meeting</string>
 
 
 </resources>

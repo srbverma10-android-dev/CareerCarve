@@ -4,6 +4,8 @@ import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
@@ -17,18 +19,41 @@ import com.sourabhverma.careercarveandroidapplication.databinding.ActivityAddSch
 import java.text.DateFormat
 import java.util.*
 
-class AddScheduleActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
+
+class AddScheduleActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListener, AdapterView.OnItemSelectedListener{
     private lateinit var binding : ActivityAddScheduleBinding
 
     private lateinit var viewModel: AddScheduleViewModel
 
     private var day : Int = -1
 
+    private var selectedItemPosition = -1
+
+    private var courses = arrayOf(
+        "Select duration of the meeting", "60 mins", "45 mins",
+        "30 mins")
+
+    private var payments = arrayOf(
+        -1, 4000, 3000, 2000
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddScheduleBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this).get(AddScheduleViewModel::class.java)
         setContentView(binding.root)
+
+        binding.durationSpinner.onItemSelectedListener = this
+        val ad: ArrayAdapter<*> = ArrayAdapter<Any?>(
+            this,
+            android.R.layout.simple_spinner_item,
+            courses
+        )
+        ad.setDropDownViewResource(
+            android.R.layout
+                .simple_spinner_dropdown_item)
+        binding.durationSpinner.adapter = ad
+
 
         setOnClickListener()
 
@@ -52,9 +77,28 @@ class AddScheduleActivity : AppCompatActivity() , DatePickerDialog.OnDateSetList
                     .into(binding.profileImageOfMentor)
 
                 binding.suggestedMentorDetails.visibility = View.VISIBLE
+                binding.durationSpinner.visibility = View.VISIBLE
 
             } else {
                 Log.d("SourabhKumarVerma", "viewModelObserver: error")
+            }
+        })
+
+        viewModel.getSearchMentorByIdLiveData().observe(this, {
+            if(it?.mentorDetails != null){
+                Log.d("SourabhKumarVerma", "viewModelObserver: ${it.mentorDetails}")
+                val tempString = "${it.mentorDetails.mentor_name} (${it.mentorDetails.mentor_id})"
+                binding.nameMentor.text = tempString
+                binding.emailMentor.text = it.mentorDetails.mentor_email
+
+                Glide.with(this)
+                    .load(ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_face_24, this.theme))
+                    .apply (RequestOptions.placeholderOf(R.drawable.ic_baseline_face_24))
+                    .circleCrop()
+                    .into(binding.profileImageOfMentor)
+
+                binding.mentorIdEditTextLayout.visibility = View.GONE
+                binding.changeMentorBtn.visibility = View.GONE
             }
         })
 
@@ -72,6 +116,10 @@ class AddScheduleActivity : AppCompatActivity() , DatePickerDialog.OnDateSetList
             binding.changeMentorBtn.visibility = View.VISIBLE
         }
 
+        binding.changeMentorBtn.setOnClickListener {
+            viewModel.searchMentorById(binding.mentorIdEditText.text.toString().toInt())
+        }
+
     }
 
     override fun onDateSet(p0: android.widget.DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
@@ -85,7 +133,7 @@ class AddScheduleActivity : AppCompatActivity() , DatePickerDialog.OnDateSetList
         binding.selectDate.text = selectedDate
         Snackbar.make(binding.root, "Please wait we are scheduling a meeting for you.", Snackbar.LENGTH_SHORT).show()
 
-        viewModel.scheduleMeetingSuggestions(day, 12)
+        viewModel.scheduleMeetingSuggestions(day, binding.areaOfInterestEditText.text.toString().toInt())
 
     }
 
@@ -100,5 +148,17 @@ class AddScheduleActivity : AppCompatActivity() , DatePickerDialog.OnDateSetList
             "Friday" -> day = 5
             "Saturday" -> day = 6
         }
+    }
+
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, id: Long) {
+        if (position > 0) {
+            selectedItemPosition = position
+            binding.paymentDetails.text = "${payments[position]} Rs only /-"
+            binding.paymentDetails.visibility = View.VISIBLE
+            binding.payBtn.visibility = View.VISIBLE
+        }
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
     }
 }

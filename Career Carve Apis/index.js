@@ -13,8 +13,10 @@ app.get('/', (req, res) => {
 });
 
 const mentorRoutes = require('./src/routes/mentors.routes')
+const studentRoutes = require('./src/routes/students.routes')
 
 app.use('/api/v1/mentors', mentorRoutes);
+app.use('/api/v1/students', studentRoutes);
 
 app.listen(port, ()=>{
     console.log(`Express server is running at port ${port}`);

@@ -195,7 +195,7 @@
                     app:layout_constraintTop_toBottomOf="@id/change_mentor_tv">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/name_edit_text"
+                        android:id="@+id/mentor_id_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autofillHints="name"
@@ -224,6 +224,59 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
+
+        <Spinner
+            android:id="@+id/durationSpinner"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintTop_toBottomOf="@id/suggested_mentor_details"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            android:visibility="gone"
+            tools:visibility="visible"
+
+            android:layout_margin="@dimen/d_16"
+            />
+
+        <TextView
+            android:id="@+id/payment_details"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:visibility="gone"
+            tools:visibility="visible"
+
+            android:layout_margin="@dimen/d_16"
+
+            android:textStyle="bold"
+            android:textColor="@color/black"
+
+            app:layout_constraintTop_toBottomOf="@id/durationSpinner"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            />
+
+        <Button
+            android:id="@+id/pay_btn"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/pay_btn"
+
+            android:visibility="gone"
+            tools:visibility="visible"
+
+            android:layout_margin="@dimen/d_16"
+
+            app:layout_constraintTop_toBottomOf="@id/payment_details"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

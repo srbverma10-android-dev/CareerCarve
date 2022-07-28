@@ -10,6 +10,21 @@ class AddScheduleViewModel: ViewModel() {
 
     private val repo : AddScheduleRepo = AddScheduleRepo()
     private var suggestions : MutableLiveData<ScheduleSuggestion> = MutableLiveData()
+    private var search : MutableLiveData<ScheduleSuggestion> = MutableLiveData()
+
+    fun searchMentorById(id : Int){
+        repo.searchMentorById(id){
+            if (it != null && it.status && it.mentorDetails != null){
+                search.postValue(it)
+            } else {
+                search.postValue(null)
+            }
+        }
+    }
+
+    fun getSearchMentorByIdLiveData() : MutableLiveData<ScheduleSuggestion> {
+        return search
+    }
 
     fun scheduleMeetingSuggestions(day : Int, area_of_intrest : Int){
         Log.d("CareerCarve", "scheduleMeetingSuggestions: $day , $area_of_intrest")
