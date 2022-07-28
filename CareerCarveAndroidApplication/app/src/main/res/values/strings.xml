@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Career Carve Android Application</string>
+
+    <string name="welcome">Welcome!!!</string>
+    <string name="select_your_profession">Select your profession…</string>
+    <string name="i_am_a_student">I am a student…</string>
+    <string name="i_am_a_mentor">I am a mentor…</string>
+    <string name="or">Or</string>
+    <string name="enter_name">Enter your name…</string>
+    <string name="enter_email">Enter your email id…</string>
+    <string name="submit">Submit</string>
+
+
+</resources>

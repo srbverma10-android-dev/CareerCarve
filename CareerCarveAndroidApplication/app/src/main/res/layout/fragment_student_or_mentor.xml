@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".entry_point.presentation.fragment.StudentOrMentorFragment">
+
+        <TextView
+            android:id="@+id/welcome_tv"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="@dimen/d_8"
+            android:layout_marginTop="@dimen/d_24"
+            android:text="@string/welcome"
+            android:textColor="@color/black"
+
+            android:textSize="@dimen/s_42"
+            android:textStyle="bold"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/select_your_profession"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="@dimen/d_16"
+            android:text="@string/select_your_profession"
+            android:textColor="@color/black"
+            android:textSize="@dimen/s_18"
+
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@id/welcome_tv"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <Button
+            android:id="@+id/student_btn"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="@dimen/d_16"
+            android:text="@string/i_am_a_student"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s_18"
+
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@id/select_your_profession" />
+
+        <TextView
+            android:id="@+id/separator_1"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="@dimen/d_8"
+            android:text="@string/or"
+            android:textColor="@color/black"
+            android:textSize="@dimen/s_18"
+
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@id/student_btn" />
+
+        <Button
+            android:id="@+id/mentor_btn"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="@dimen/d_8"
+            android:text="@string/i_am_a_mentor"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s_18"
+
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/separator_1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
