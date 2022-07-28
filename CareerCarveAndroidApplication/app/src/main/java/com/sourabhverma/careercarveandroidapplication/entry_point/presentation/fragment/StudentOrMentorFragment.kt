@@ -39,7 +39,9 @@ class StudentOrMentorFragment : Fragment() {
         }
 
         binding.mentorBtn.setOnClickListener {
-
+            val fr: Fragment = DetailsForMentorFragment()
+            val fc: ChangeFragment = activity as ChangeFragment
+            fc.replaceFragment(fr)
         }
     }
 

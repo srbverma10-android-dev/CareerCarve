@@ -10,7 +10,7 @@ exports.addMentors = (req, res) => {
         Mentors.addMentor(mentorReqData, (err, mentor)=>{
             if(err)
             res.send(err);
-            res.json({status: true, data: mentor})
+            res.json({status: true, data: mentor.insertId})
         })
     }
 }
