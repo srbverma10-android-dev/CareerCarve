@@ -3,13 +3,17 @@ package com.sourabhverma.careercarveandroidapplication.add_schedule.presentation
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
+import com.sourabhverma.careercarveandroidapplication.R
 import com.sourabhverma.careercarveandroidapplication.add_schedule.presentation.dialogs.DatePicker
 import com.sourabhverma.careercarveandroidapplication.add_schedule.presentation.viewmodels.AddScheduleViewModel
 import com.sourabhverma.careercarveandroidapplication.databinding.ActivityAddScheduleBinding
-import com.sourabhverma.careercarveandroidapplication.entry_point.presentation.viewmodels.EntryPointViewModel
 import java.text.DateFormat
 import java.util.*
 
@@ -37,6 +41,18 @@ class AddScheduleActivity : AppCompatActivity() , DatePickerDialog.OnDateSetList
         viewModel.getSuggestionsLiveData().observe(this, {
             if(it?.mentorDetails != null){
                 Log.d("SourabhKumarVerma", "viewModelObserver: $it")
+                val tempString = "${it.mentorDetails.mentor_name} (${it.mentorDetails.mentor_id})"
+                binding.nameMentor.text = tempString
+                binding.emailMentor.text = it.mentorDetails.mentor_email
+
+                Glide.with(this)
+                    .load(ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_face_24, this.theme))
+                    .apply (RequestOptions.placeholderOf(R.drawable.ic_baseline_face_24))
+                    .circleCrop()
+                    .into(binding.profileImageOfMentor)
+
+                binding.suggestedMentorDetails.visibility = View.VISIBLE
+
             } else {
                 Log.d("SourabhKumarVerma", "viewModelObserver: error")
             }
@@ -49,6 +65,11 @@ class AddScheduleActivity : AppCompatActivity() , DatePickerDialog.OnDateSetList
         binding.selectDate.setOnClickListener {
             val mDatePickerDialogFragment = DatePicker()
             mDatePickerDialogFragment.show(supportFragmentManager, "DATE PICK")
+        }
+
+        binding.changeMentorTv.setOnClickListener {
+            binding.mentorIdEditTextLayout.visibility = View.VISIBLE
+            binding.changeMentorBtn.visibility = View.VISIBLE
         }
 
     }

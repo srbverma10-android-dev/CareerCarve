@@ -6,6 +6,7 @@
     <dimen name="s_18">18sp</dimen>
 
     <dimen name="d_126">126dp</dimen>
+    <dimen name="d_48">48dp</dimen>
     <dimen name="d_24">24dp</dimen>
     <dimen name="d_16">16dp</dimen>
     <dimen name="d_12">12dp</dimen>

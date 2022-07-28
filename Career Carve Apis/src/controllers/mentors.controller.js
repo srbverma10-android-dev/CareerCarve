@@ -11,6 +11,16 @@ exports.schedule = (req, res) => {
 }
 
 
+exports.searchByMentorId = (req, res) => {
+    console.log("Searching by mentor ID");
+    Mentors.searchByMentorId(req.params.mentor_id, (err, mentor) => {
+        if(err)
+            res.send(err);
+        res.json({status : true, mentorDetails:mentor[0]})
+    })
+}
+
+
 exports.addMentors = (req, res) => {
     const mentorReqData = new Mentors(req.body);
     console.log("Adding Mentors...", mentorReqData);

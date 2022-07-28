@@ -27,6 +27,9 @@
     <string name="what_is_your_area_of_interest">What is your area of interest???</string>
     <string name="enter_date_for_scheduling_meeting">Select a date for scheduling a meeting with our mentors.</string>
     <string name="select_date">Select date.</string>
+    <string name="change_mentor">Want to change mentor?</string>
+    <string name="enter_mentor_id">Enter mentor id</string>
+    <string name="change_mentor_btn">Change mentor</string>
 
 
 </resources>

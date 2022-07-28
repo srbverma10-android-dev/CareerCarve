@@ -15,6 +15,17 @@ var Mentors = function(mentors){
     this.schedule_end              = mentors.schedule_end;
 }
 
+Mentors.searchByMentorId = (id, result) => {
+    dbConn.query('Select * From mentors WHERE mentor_id = ?', id, (err, res) => {
+        if(err){
+            console.log('Error while scheduling a meeting', err)
+            result(null, err);            
+        } else {
+            result(null, res)
+        }
+    })
+}
+
 Mentors.scheduleMeeting = (day, area_of_interst, result) => {
 
     // "Sunday" -> day = 0
