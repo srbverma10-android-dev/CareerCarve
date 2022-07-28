@@ -3,11 +3,27 @@ package com.sourabhverma.careercarveandroidapplication.entry_point.presentation.
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sourabhverma.careercarveandroidapplication.entry_point.data.remote.dto.AddMentor
+import com.sourabhverma.careercarveandroidapplication.entry_point.data.remote.dto.AddStudent
 import com.sourabhverma.careercarveandroidapplication.entry_point.data.remote.repository.EntryPointRepo
 
 class EntryPointViewModel : ViewModel() {
     private val repo : EntryPointRepo = EntryPointRepo()
     private var addMentorLiveData : MutableLiveData<AddMentor> = MutableLiveData()
+    private var addStudentLiveData : MutableLiveData<AddStudent> = MutableLiveData()
+
+    fun addStudent(student_name : String, student_email : String){
+        repo.addStudent(student_name, student_email) {
+            if (it != null && it.status && it.data != null){
+                addStudentLiveData.postValue(it)
+            }else {
+                addStudentLiveData.postValue(null)
+            }
+        }
+    }
+
+    fun getAddStudentLiveData() : MutableLiveData<AddStudent>{
+        return addStudentLiveData
+    }
 
     fun addMentor(mentor_name: String, mentor_email: String, area_of_intrest: Int,
                   avail_mon: Boolean, avail_tue: Boolean, avail_wed: Boolean, avail_thrus : Boolean,
