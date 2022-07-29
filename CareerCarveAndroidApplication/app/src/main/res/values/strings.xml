@@ -8,6 +8,7 @@
     <string name="or">Or</string>
     <string name="enter_name">Enter your name…</string>
     <string name="enter_email">Enter your email id…</string>
+    <string name="enter_aoi">Enter your area of interest…</string>
     <string name="submit">Submit</string>
 
     <string name="enter_your_preferred_days">Please select your preferred days…</string>

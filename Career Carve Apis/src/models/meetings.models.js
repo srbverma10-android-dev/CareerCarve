@@ -14,6 +14,19 @@ var Meeting = function(meeting){
 }
 
 
+Meeting.getAllMeetingsByStudentId = (id, result) => {
+    var query = 'SELECT * FROM meetings WHERE student_id = ' + id
+    dbConn.query(query , (err, res)=>{
+        if(err){
+            console.log('Error while inserting data...');
+            result(null, {status : false, message : err});
+        } else {
+            console.log('mentor created successfully');
+            result(null, res)
+        }
+    })
+}
+
 Meeting.addMeeting = (meetingReqData, result) => {
     // var queryForFindingStartTimming = 'Select schedule_end From meetings Where mentor_id = ' + meetingReqData.mentor_id + ' AND meeting_date = Date(' + meetingReqData.meeting_date +') ORDER BY schedule_end DESC LIMIT 1';
     var queryForFindingStartTimming = 'Select schedule_end From meetings Where mentor_id = ' + meetingReqData.mentor_id + ' AND meeting_date = (Date \'' + meetingReqData.meeting_date +'\') ORDER BY schedule_end DESC LIMIT 1';

@@ -2,6 +2,7 @@ package com.sourabhverma.careercarveandroidapplication.add_schedule.presentation
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -77,6 +78,12 @@ class AddScheduleActivity : AppCompatActivity() , DatePickerDialog.OnDateSetList
 
     private fun viewModelObserver() {
 
+        viewModel.getAddMeetingLiveData().observe(this, {
+            if(it?.data !=null){
+                onBackPressed()
+            }
+        })
+
         viewModel.getSuggestionsLiveData().observe(this, {
             if(it?.mentorDetails != null){
                 Log.d("SourabhKumarVerma", "viewModelObserver: $it")
@@ -128,7 +135,6 @@ class AddScheduleActivity : AppCompatActivity() , DatePickerDialog.OnDateSetList
 
             }
         })
-
     }
 
     private fun setOnClickListener() {
@@ -144,7 +150,11 @@ class AddScheduleActivity : AppCompatActivity() , DatePickerDialog.OnDateSetList
         }
 
         binding.changeMentorBtn.setOnClickListener {
-            viewModel.searchMentorById(binding.mentorIdEditText.text.toString().toInt())
+            if (binding.mentorIdEditText.text.toString().isNotEmpty()) {
+                viewModel.searchMentorById(binding.mentorIdEditText.text.toString().toInt())
+            } else {
+                Snackbar.make(binding.root, "Please enter mentor_id.", Snackbar.LENGTH_SHORT).show()
+            }
         }
 
         binding.payBtn.setOnClickListener {
@@ -173,9 +183,26 @@ class AddScheduleActivity : AppCompatActivity() , DatePickerDialog.OnDateSetList
         binding.selectDate.text = selectedDate
         Snackbar.make(binding.root, "Please wait we are scheduling a meeting for you.", Snackbar.LENGTH_SHORT).show()
 
-        meeting_date = "${year}-${month}-${dayOfMonth}"
+        meeting_date = "${year}-"
 
-        viewModel.scheduleMeetingSuggestions(day, binding.areaOfInterestEditText.text.toString().toInt())
+        meeting_date += if(month.toString().length < 2){
+            "0$month-"
+        } else {
+            "$month-"
+        }
+
+        meeting_date += if(dayOfMonth.toString().length < 2){
+            "0$dayOfMonth"
+        } else {
+            "$dayOfMonth"
+        }
+
+
+        if (binding.areaOfInterestEditText.text.toString().isNotEmpty()) {
+            viewModel.scheduleMeetingSuggestions(day, binding.areaOfInterestEditText.text.toString().toInt())
+        } else {
+            Snackbar.make(binding.root, "Enter area of interest.", Snackbar.LENGTH_SHORT).show()
+        }
 
     }
 

@@ -7,12 +7,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.snackbar.Snackbar
 import com.sourabhverma.careercarveandroidapplication.R
 import com.sourabhverma.careercarveandroidapplication.dashboard.presentation.activity.DashBoardActivity
 import com.sourabhverma.careercarveandroidapplication.databinding.FragmentDetailsForStudentBinding
@@ -63,10 +65,13 @@ class DetailsForStudentFragment : Fragment() {
                 editor.putString(VARIABLES.NAME, binding.nameEditText.text.toString())
                 editor.putString(VARIABLES.EMAIL, binding.emailEditText.text.toString())
                 editor.putInt(VARIABLES.STUDENT_ID, it.data)
+                editor.putInt(VARIABLES.TYPE, 1)
                 editor.apply()
                 val intent = Intent(requireContext(), DashBoardActivity::class.java)
                 intent.putExtra("ShouldShowFAB", true)
                 startActivity(intent)
+            } else {
+                Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -75,7 +80,12 @@ class DetailsForStudentFragment : Fragment() {
     private fun setOnClickListener() {
 
         binding.submitBtn.setOnClickListener {
-            viewModel.addStudent(binding.nameEditText.text.toString(), binding.emailEditText.text.toString())
+            if (binding.nameEditText.text.toString().isNotEmpty() &&
+                binding.emailEditText.text.toString().isNotEmpty()) {
+                viewModel.addStudent(binding.nameEditText.text.toString(), binding.emailEditText.text.toString())
+            } else {
+               Snackbar.make(binding.root, "Fill all fields...", Snackbar.LENGTH_SHORT).show()
+            }
         }
 
     }

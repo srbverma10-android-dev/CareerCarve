@@ -2,6 +2,7 @@ package com.sourabhverma.careercarveandroidapplication.api_helper
 
 import com.sourabhverma.careercarveandroidapplication.add_schedule.data.remote.dto.AddMeeting
 import com.sourabhverma.careercarveandroidapplication.add_schedule.data.remote.dto.ScheduleSuggestion
+import com.sourabhverma.careercarveandroidapplication.dashboard.data.remote.dto.MeetingList
 import com.sourabhverma.careercarveandroidapplication.entry_point.data.remote.dto.AddMentor
 import com.sourabhverma.careercarveandroidapplication.entry_point.data.remote.dto.AddStudent
 import retrofit2.Call
@@ -49,6 +50,12 @@ interface ApiHelper {
         @Field("schedule_start") schedule_start : String,
         @Field("schedule_end") schedule_end : String
     ) : Call<AddMeeting?>?
+
+
+    @GET("/api/v1/meetings/getAllById/student/{student_id}")
+    fun getMeetingListByStudentId(
+        @Path("student_id") student_id : Int,
+    ) : Call<MeetingList?>?
 
     @FormUrlEncoded
     @POST("api/v1/students/add")

@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
 
                 android:layout_marginTop="@dimen/d_8"
-                android:hint="@string/enter_email"
+                android:hint="@string/enter_aoi"
 
                 android:textColorHint="@color/black"
 

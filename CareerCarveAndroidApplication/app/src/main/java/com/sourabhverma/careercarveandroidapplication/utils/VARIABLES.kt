@@ -8,6 +8,7 @@ class VARIABLES {
         val NAME = "nameKey"
         val EMAIL = "emailKey"
         val STUDENT_ID = "studentId"
+        val TYPE = "type"
     }
 
 }
