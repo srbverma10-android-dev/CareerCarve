@@ -13,6 +13,19 @@ var Meeting = function(meeting){
     this.meeting_date = meeting.meeting_date;
 }
 
+Meeting.getAllMeetingsByMentorId = (id, result) => {
+    var query = 'SELECT * FROM meetings WHERE mentor_id = ' + id
+    dbConn.query(query , (err, res)=>{
+        if(err){
+            console.log('Error while inserting data...');
+            result(null, {status : false, message : err});
+        } else {
+            console.log('mentor created successfully');
+            result(null, res)
+        }
+    })
+}
+
 
 Meeting.getAllMeetingsByStudentId = (id, result) => {
     var query = 'SELECT * FROM meetings WHERE student_id = ' + id

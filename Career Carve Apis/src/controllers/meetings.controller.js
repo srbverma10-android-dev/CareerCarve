@@ -10,6 +10,15 @@ exports.getAllMeetingsByStudentId = (req, res) => {
     })
 }
 
+exports.getAllMeetingsByMentorId = (req, res) => {
+    console.log("Fetching Meetings...");
+    Meetings.getAllMeetingsByMentorId(req.params.mentor_id, (err, meeting)=>{
+        if(err)
+        res.send(err);
+        res.json({status: true, data: meeting})
+    })
+}
+
 
 exports.addMeeting = (req, res) => {
     const MeetingReqData = new Meetings(req.body);
