@@ -114,7 +114,9 @@ class DetailsForMentorFragment : Fragment() {
             if (binding.emailEditText.text.toString().isNotEmpty() &&
                 binding.aoiEditText.text.toString().isNotEmpty() &&
                 binding.startTiming.text.toString() != context?.resources?.getString(R.string.enter_start_timing) &&
-                binding.endTiming.text.toString() != context?.resources?.getString(R.string.enter_end_timing)) {
+                binding.endTiming.text.toString() != context?.resources?.getString(R.string.enter_end_timing) &&
+                binding.aoiEditText.text.toString().toInt() >= 1 &&
+                binding.aoiEditText.text.toString().toInt() <= 42) {
                 viewModel.addMentor(binding.nameEditText.text.toString(),
                     binding.emailEditText.text.toString(),
                     binding.aoiEditText.text.toString().toInt(),
