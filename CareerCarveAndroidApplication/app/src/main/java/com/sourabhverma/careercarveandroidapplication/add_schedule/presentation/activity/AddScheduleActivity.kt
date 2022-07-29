@@ -186,9 +186,9 @@ class AddScheduleActivity : AppCompatActivity() , DatePickerDialog.OnDateSetList
         meeting_date = "${year}-"
 
         meeting_date += if(month.toString().length < 2){
-            "0$month-"
+            "0${month+1}-"
         } else {
-            "$month-"
+            "${month+1}-"
         }
 
         meeting_date += if(dayOfMonth.toString().length < 2){

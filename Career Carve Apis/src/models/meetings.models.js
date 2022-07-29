@@ -50,7 +50,7 @@ Meeting.addMeeting = (meetingReqData, result) => {
             result(null, {status : false, message : err});
         } else {
             console.log('mentor created successfully');
-            
+            console.log(res);            
             if(res.length > 0){    
                 meetingReqData.schedule_start = res[0].schedule_end;
 
@@ -61,7 +61,13 @@ Meeting.addMeeting = (meetingReqData, result) => {
                 now.setMinutes(splitStr[1]);
                 now.setSeconds(splitStr[2]);
     
-                now.addMinutes(meetingReqData.duration);
+                if(meetingReqData.duration === '30'){
+                    now.addMinutes(30);
+                } else if (meetingReqData.duration === '45'){
+                    now.addMinutes(45);
+                } else if (meetingReqData.duration === '60'){
+                    now.addMinutes(60);
+                }
     
                 var splitEnd = meetingReqData.schedule_end.split(':');
                 if(now.getHours() < splitEnd[0] || (now.getHours() == splitEnd[0] && now.getMinutes() < splitEnd[1])){
@@ -87,13 +93,20 @@ Meeting.addMeeting = (meetingReqData, result) => {
                 }
             } else {            
                 var now = new Date();
+
                 var splitStr = meetingReqData.schedule_start.split(":");
-    
+
                 now.setHours(splitStr[0]);
                 now.setMinutes(splitStr[1]);
                 now.setSeconds(splitStr[2]);
-    
-                now.addMinutes(meetingReqData.duration);
+
+                if(meetingReqData.duration === '30'){
+                    now.addMinutes(30);
+                } else if (meetingReqData.duration === '45'){
+                    now.addMinutes(45);
+                } else if (meetingReqData.duration === '60'){
+                    now.addMinutes(60);
+                }
 
                 var splitEnd = meetingReqData.schedule_end.split(':');
 
@@ -102,7 +115,7 @@ Meeting.addMeeting = (meetingReqData, result) => {
                     var endTime = now.getHours().toString().length < 2 ? '0' + now.getHours().toString() : now.getHours().toString().concat(':', 
                     now.getMinutes().toString().length < 2 ? '0' + now.getMinutes().toString() : now.getMinutes().toString()).concat(':', 
                     now.getSeconds().toString().length < 2 ? '0' + now.getSeconds().toString() : now.getSeconds().toString());
-            
+                            
                     meetingReqData.schedule_end = endTime;
                 
                     dbConn.query('Insert into meetings SET ? ', meetingReqData, (err, res)=>{

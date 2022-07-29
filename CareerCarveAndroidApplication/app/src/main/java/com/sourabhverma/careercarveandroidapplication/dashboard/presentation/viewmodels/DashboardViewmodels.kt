@@ -10,6 +10,8 @@ class DashboardViewmodels : ViewModel() {
 
     private var getMeetingListByStudentIdLiveData : MutableLiveData<MeetingList> = MutableLiveData()
 
+    private var getMeetingListByMentorIdLiveData : MutableLiveData<MeetingList> = MutableLiveData()
+
     fun getMeetingListByStudentId(student_id : Int){
         repo.getMeetingsByStudentId(student_id) {
             if (it != null && it.status && it.data != null){
@@ -22,6 +24,20 @@ class DashboardViewmodels : ViewModel() {
 
     fun getMeetingListByStudentIdLiveData() : MutableLiveData<MeetingList> {
         return getMeetingListByStudentIdLiveData
+    }
+
+    fun getMeetingListByMentorId(mentor_id : Int){
+        repo.getMeetingsByMentorId(mentor_id) {
+            if (it != null && it.status && it.data != null){
+                getMeetingListByMentorIdLiveData.postValue(it)
+            }else {
+                getMeetingListByMentorIdLiveData.postValue(null)
+            }
+        }
+    }
+
+    fun getMeetingListByMentorIdLiveData() : MutableLiveData<MeetingList> {
+        return getMeetingListByMentorIdLiveData
     }
 
 }

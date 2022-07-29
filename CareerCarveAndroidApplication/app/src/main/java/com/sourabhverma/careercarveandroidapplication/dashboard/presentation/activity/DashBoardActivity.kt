@@ -9,7 +9,6 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sourabhverma.careercarveandroidapplication.add_schedule.presentation.activity.AddScheduleActivity
-import com.sourabhverma.careercarveandroidapplication.add_schedule.presentation.viewmodels.AddScheduleViewModel
 import com.sourabhverma.careercarveandroidapplication.dashboard.presentation.adapters.MeetingListAdapter
 import com.sourabhverma.careercarveandroidapplication.dashboard.presentation.viewmodels.DashboardViewmodels
 import com.sourabhverma.careercarveandroidapplication.databinding.ActivityDashBoardBinding
@@ -52,10 +51,19 @@ class DashBoardActivity : AppCompatActivity() {
         viewModel.getMeetingListByStudentIdLiveData().observe(this, {
             if(it != null && it.data.isNotEmpty()){
                 Log.d("SourabhKumarVerma", "viewModelObserver: " + it.data)
-                adapterRV.setMeetingListData(it.data, this)
+                adapterRV.setMeetingListData(it.data, this, 0)
                 adapterRV.notifyDataSetChanged()
             }
         })
+
+        viewModel.getMeetingListByMentorIdLiveData().observe(this, {
+            if(it != null && it.data.isNotEmpty()){
+                Log.d("SourabhKumarVerma", "viewModelObserver: " + it.data)
+                adapterRV.setMeetingListData(it.data, this, 1)
+                adapterRV.notifyDataSetChanged()
+            }
+        })
+
     }
 
     override fun onResume() {
@@ -64,9 +72,11 @@ class DashBoardActivity : AppCompatActivity() {
             VARIABLES.MY_PREFERENCES, Context.MODE_PRIVATE
         )
         val type = prefs.getInt(VARIABLES.TYPE, -1)
+        val id = prefs.getInt(VARIABLES.STUDENT_ID, -1)
         if (type == 1) {
-            val student_id = prefs.getInt(VARIABLES.STUDENT_ID, -1)
-            viewModel.getMeetingListByStudentId(student_id)
+            viewModel.getMeetingListByStudentId(id)
+        } else {
+            viewModel.getMeetingListByMentorId(id)
         }
     }
 

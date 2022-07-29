@@ -16,10 +16,12 @@ import com.sourabhverma.careercarveandroidapplication.dashboard.data.remote.dto.
 class MeetingListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     private var listOfMeetings : List<Data> = listOf()
     private var context : Context? = null
+    private var type : Int? = null
 
-    fun setMeetingListData(list : List<Data>, context: Context){
+    fun setMeetingListData(list : List<Data>, context: Context, type : Int){
         this.context = context
         this.listOfMeetings = list
+        this.type = type
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val v =
@@ -34,9 +36,15 @@ class MeetingListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val viewHolder = holder as MyViewHolder
-        viewHolder.name_mentor.text = listOfMeetings[position].mentor_name
-        viewHolder.email_mentor.text = listOfMeetings[position].mentor_email
-        viewHolder.timming.text = "${listOfMeetings[position].schedule_start} - ${listOfMeetings[position].schedule_end}"
+        if (type == 0) {
+            viewHolder.name_mentor.text = listOfMeetings[position].mentor_name
+            viewHolder.email_mentor.text = listOfMeetings[position].mentor_email
+            viewHolder.timming.text = "${listOfMeetings[position].schedule_start} - ${listOfMeetings[position].schedule_end}"
+        } else {
+            viewHolder.name_mentor.text = listOfMeetings[position].student_name
+            viewHolder.email_mentor.text = listOfMeetings[position].student_email
+            viewHolder.timming.text = "${listOfMeetings[position].schedule_start} - ${listOfMeetings[position].schedule_end}"
+        }
 
         if (context!=null) {
             Glide.with(context!!)

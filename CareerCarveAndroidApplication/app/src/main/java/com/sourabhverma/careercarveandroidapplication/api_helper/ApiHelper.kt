@@ -54,7 +54,12 @@ interface ApiHelper {
 
     @GET("/api/v1/meetings/getAllById/student/{student_id}")
     fun getMeetingListByStudentId(
-        @Path("student_id") student_id : Int,
+        @Path("student_id") student_id : Int
+    ) : Call<MeetingList?>?
+
+    @GET("/api/v1/meetings/getAllById/mentor/{mentor_id}")
+    fun getMeetingListByMentorId(
+        @Path("mentor_id") mentor_id : Int
     ) : Call<MeetingList?>?
 
     @FormUrlEncoded
