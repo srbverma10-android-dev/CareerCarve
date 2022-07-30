@@ -3,6 +3,8 @@ step 1 :- make databases in workbench
 step 2 :- use npm start to run server 
 step 3 :- install android app
 
+<img src="https://github.com/srbverma10-android-dev/CareerCarve/blob/main/ScreenShots/1.jpeg" alt="Step 1">
+
 ![1](https://user-images.githubusercontent.com/71958293/181899330-3d2dc229-b09b-4a5b-ab75-56b32577fbd1.jpeg)
 ![2](https://user-images.githubusercontent.com/71958293/181899345-7fd84304-cc44-4c8c-bdf4-8668b30af791.jpeg)
 ![3](https://user-images.githubusercontent.com/71958293/181899223-2ea93699-6d1b-46f0-a37f-7c9845e5a72d.jpeg)
