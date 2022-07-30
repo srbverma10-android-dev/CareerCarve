@@ -16,4 +16,3 @@ step 3 :- install android app
 <img src="https://github.com/srbverma10-android-dev/CareerCarve/blob/main/ScreenShots/11.jpeg" alt="Step 11" style="width:400px;height:600px;">
 <img src="https://github.com/srbverma10-android-dev/CareerCarve/blob/main/ScreenShots/12.jpeg" alt="Step 12" style="width:400px;height:600px;">
 <img src="https://github.com/srbverma10-android-dev/CareerCarve/blob/main/ScreenShots/13.jpeg" alt="Step 13" style="width:400px;height:600px;">
-<img src="https://github.com/srbverma10-android-dev/CareerCarve/blob/main/ScreenShots/14.jpeg" alt="Step 14" style="width:400px;height:600px;">
